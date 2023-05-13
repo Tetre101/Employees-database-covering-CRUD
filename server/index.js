@@ -12,9 +12,14 @@ const db = mysql.createConnection({
   password: "root",
   database: "employees",
 });
-if (db) {
-  console.log("connected to db");
-}
+db.connect((err) => {
+  if (err) {
+    console.error("Error connecting to database:", err.stack);
+    return;
+  }
+
+  console.log("Connected to database as ID", db.threadId);
+});
 
 app.post("/create", (req, res) => {
   const name = req.body.name;
